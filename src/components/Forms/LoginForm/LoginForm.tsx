@@ -54,7 +54,7 @@ const LoginForm = () => {
     >
       {openWarningModal && (
         <Modal
-          modalType="warning"
+          //modalType="warning"
           message1="E-mail ou senha incorretos"
           message2="Não conseguimos encontrar uma conta com essas credenciais. Verifique se digitou seu e-mail e senha corretamente."
           buttons={[

@@ -1,5 +1,5 @@
 import React from 'react';
-import { metropolis } from '@/styles/fonts';
+import { lato } from '@/styles/fonts';
 
 interface Props {
   image: string;
@@ -19,7 +19,7 @@ const TableDataNotFound = ({ image, message, description, button }: Props) => {
       <img width={80} height={80} src={image} alt="Ícone da tabela" />
       <div className="flex flex-col gap-[16px]">
         <p
-          className={`${metropolis.className} text-center text-neutral2 text-[18px] font-bold`}
+          className={`${lato.className} text-center text-neutral2 text-[18px] font-bold`}
         >
           {message}
         </p>
