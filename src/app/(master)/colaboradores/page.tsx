@@ -9,10 +9,8 @@ import AddButton from '@/components/Buttons/AddButton/AddButton';
 import Tab2 from '@/components/Tabs/Tab2/Tab2';
 import useDebounce from '@/hooks/useDebounce';
 import { useRouter } from 'next/navigation';
-<<<<<<< HEAD
 import protectedRoute from '@/hooks/protectedRoute';
-=======
->>>>>>> b4a91cc7aa32a3da5c98084b8fcce3be2af10c3c
+
 
 const CollaboratorsPage = () => {
   const router = useRouter();
@@ -63,8 +61,4 @@ const CollaboratorsPage = () => {
   );
 };
 
-<<<<<<< HEAD
 export default protectedRoute(CollaboratorsPage);
-=======
-export default CollaboratorsPage;
->>>>>>> b4a91cc7aa32a3da5c98084b8fcce3be2af10c3c

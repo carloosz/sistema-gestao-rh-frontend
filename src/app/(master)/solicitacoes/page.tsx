@@ -7,10 +7,8 @@ import { headers, rows } from './fakedata';
 import Searchbar from '@/components/Inputs/Searchbar/Searchbar';
 import useDebounce from '@/hooks/useDebounce';
 import { useRouter } from 'next/navigation';
-<<<<<<< HEAD
 import protectedRoute from '@/hooks/protectedRoute';
-=======
->>>>>>> b4a91cc7aa32a3da5c98084b8fcce3be2af10c3c
+
 
 const RequestsPage = () => {
   const router = useRouter();
@@ -41,8 +39,5 @@ const RequestsPage = () => {
   );
 };
 
-<<<<<<< HEAD
 export default protectedRoute(RequestsPage);
-=======
-export default RequestsPage;
->>>>>>> b4a91cc7aa32a3da5c98084b8fcce3be2af10c3c
+
