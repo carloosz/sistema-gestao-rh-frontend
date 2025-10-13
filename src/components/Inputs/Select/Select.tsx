@@ -7,7 +7,7 @@ interface Props {
   id: string;
   readOnly?: boolean;
   name: string;
-  label: string;
+  label?: string;
   placeholder: string;
   options: IOption[];
   control: Control<any>;
@@ -22,7 +22,9 @@ const SelectCustom: ForwardRefRenderFunction<any, Props> = (
 
   return (
     <div className="relative w-full flex flex-col gap-[8px]">
-      <span className="text-[16px] font-normal text-secondary">{label}</span>
+      {label && (
+        <span className="text-[16px] font-normal text-secondary">{label}</span>
+      )}
       <Controller
         control={control}
         name={name}
@@ -37,7 +39,7 @@ const SelectCustom: ForwardRefRenderFunction<any, Props> = (
               ref={ref}
             >
               <div className="flex items-center justify-between">
-                <span className="text-[16px] text-primary font-normal">
+                <span className="text-[16px] text-white font-normal">
                   {(field?.value?.label as string) || 'Selecione'}
                 </span>
                 <button

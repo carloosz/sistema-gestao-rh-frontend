@@ -10,7 +10,7 @@ const Sidebar = () => {
   const [openLogoutModal, setOpenLogoutModal] = useState(false);
 
   return (
-    <aside className="fixed w-[113px] left-0 top-0 bottom-0 bg-primary rounded-r-[10px] border-primary p-[24px]! transition-all flex flex-col justify-between gap-[40px] z-[99]">
+    <aside className="fixed w-[113px] left-0 top-0 bottom-0 bg-primary rounded-r-[10px] border-primary p-[24px]! transition-all flex flex-col justify-between items-center gap-[40px] z-[99]">
       {openLogoutModal && (
         <ModalLogout
           onConfirm={logout}
@@ -21,11 +21,11 @@ const Sidebar = () => {
         <nav className="flex flex-col justify-center items-center mt-[156px]! gap-[40px]">
           <Link
             href="/colaboradores"
-            className="flex gap-[8px] items-center text-start w-[48px]  h-[48px] transition-width text-primary4 hover:text-primary2"
+            className="flex gap-[8px] items-center text-start w-[36px]  h-[36px] transition-width text-primary4 hover:text-primary2"
           >
             <img
-              width={48}
-              height={48}
+              width={36}
+              height={36}
               src={
                 pathName.match('/colaboradores') !== null
                   ? '/img/menu/users_active.svg'
@@ -36,15 +36,45 @@ const Sidebar = () => {
           </Link>
           <Link
             href="/solicitacoes"
-            className="flex gap-[8px] items-center text-start w-[48px]  h-[48px] transition-width text-primary4 hover:text-primary2"
+            className="flex gap-[8px] items-center text-start w-[36px]  h-[36px] transition-width text-primary4 hover:text-primary2"
           >
             <img
-              width={48}
-              height={48}
+              width={36}
+              height={36}
               src={
                 pathName.match('/solicitacoes') !== null
                   ? '/img/menu/requests_active.svg'
                   : '/img/menu/requests.svg'
+              }
+              alt=""
+            />
+          </Link>
+          <Link
+            href="/termos"
+            className="flex gap-[8px] items-center text-start w-[36px]  h-[36px] transition-width text-primary4 hover:text-primary2"
+          >
+            <img
+              width={36}
+              height={36}
+              src={
+                pathName.match('/termos') !== null
+                  ? '/img/menu/clip_active.svg'
+                  : '/img/menu/clip.svg'
+              }
+              alt=""
+            />
+          </Link>
+          <Link
+            href="/config"
+            className="flex gap-[8px] items-center text-start w-[36px]  h-[36px] transition-width text-primary4 hover:text-primary2"
+          >
+            <img
+              width={36}
+              height={36}
+              src={
+                pathName.match('/config') !== null
+                  ? '/img/menu/gear_active.svg'
+                  : '/img/menu/gear.svg'
               }
               alt=""
             />
@@ -54,9 +84,9 @@ const Sidebar = () => {
       <button
         type="button"
         onClick={() => setOpenLogoutModal(true)}
-        className="flex gap-[8px] items-center text-start w-[48px] h-[48px] transition-width text-primary4 hover:text-primary2 mb-[67px]!"
+        className="flex gap-[8px] items-center text-start w-[36px] h-[36px] transition-width text-primary4 hover:text-primary2 mb-[67px]!"
       >
-        <img width={48} height={48} src="/img/menu/logout.svg" alt="" />
+        <img width={36} height={36} src="/img/menu/logout.svg" alt="" />
       </button>
     </aside>
   );

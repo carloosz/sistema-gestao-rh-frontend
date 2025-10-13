@@ -5,7 +5,6 @@
 
 import { IAttribute } from '@/interfaces/Attribute';
 import api from '@/services/api';
-import handleError from '@/utils/handleToast';
 import { localStorageKeys } from '@/utils/localStorageKeys';
 import { ILoginForm } from '@/validations/LoginSchema';
 import { useRouter } from 'next/navigation';
@@ -31,9 +30,6 @@ export interface ILoginResponse {
   jwt: string;
   refreshToken: string;
   user: IUser;
-  role: {
-    name: string;
-  }
 }
 
 interface IUserProvider {
@@ -80,13 +76,6 @@ const AuthProvider = ({ children }: ChildrenProps) => {
       password: form?.password,
       requestRefresh: form?.remember_me,
     });
-
-    const ADMIN_ROLE_NAME = 'Master';
-
-    if (data?.role?.name !== ADMIN_ROLE_NAME) {
-      handleError('Acesso negado');
-      return;
-    }
 
     setUser(data?.user);
 

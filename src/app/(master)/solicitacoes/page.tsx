@@ -3,19 +3,39 @@
 import TableComponent from '@/components/TableComponent/TableComponent';
 import Title from '@/components/Title/Title';
 import React, { useState } from 'react';
-import { headers, rows } from './fakedata';
+import { headers } from './fakedata';
 import Searchbar from '@/components/Inputs/Searchbar/Searchbar';
 import useDebounce from '@/hooks/useDebounce';
 import { useRouter } from 'next/navigation';
 import protectedRoute from '@/hooks/protectedRoute';
+import { useRequests } from '@/services/requests/requests/getRequests';
+import { IRequestList } from '@/interfaces/Request';
 
+const dataToRows = (data: IRequestList) => {
+  return data?.requests?.map(item => ({
+    id: item?.documentId,
+    active: true,
+    data: [
+      { text: item?.id?.toString() },
+      { text: item?.name },
+      { text: item?.createdAt?.slice(0, 10)?.split('-')?.reverse()?.join('/') },
+      { text: item?.type || '-' },
+      { text: item?.isFinished ? 'Finalizada' : 'Pendente' },
+    ],
+  }));
+};
 
 const RequestsPage = () => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState('');
   const debouncedSearch = useDebounce(search, 600);
-  console.log(debouncedSearch);
+
+  const { data } = useRequests({
+    page: currentPage,
+    pageSize: 9,
+    search: debouncedSearch,
+  });
 
   return (
     <div className="flex flex-col gap-[34px]">
@@ -27,17 +47,18 @@ const RequestsPage = () => {
           onChange={e => setSearch(e?.target?.value)}
         />
       </div>
-      <TableComponent
-        headers={headers}
-        rows={rows}
-        page={currentPage}
-        setPage={setCurrentPage}
-        total={rows.length}
-        handleView={(id: string) => router.push(`/solicitacoes/ver/${id}`)}
-      />
+      {data?.requests?.length > 0 && (
+        <TableComponent
+          headers={headers}
+          rows={dataToRows(data)}
+          page={currentPage}
+          setPage={setCurrentPage}
+          total={data?.totalItems}
+          handleView={(id: string) => router.push(`/solicitacoes/ver/${id}`)}
+        />
+      )}
     </div>
   );
 };
 
 export default protectedRoute(RequestsPage);
-

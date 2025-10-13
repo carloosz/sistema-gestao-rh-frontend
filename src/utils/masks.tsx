@@ -22,6 +22,18 @@ export const maskDate = (value: string) => {
     ?.slice(0, 10);
 };
 
+export const maskHourInterval = (value: string) => {
+  const formatedValue = value?.replace(/[^0-9]/g, '');
+  if (formatedValue.length < 5) {
+    return formatedValue?.replace(/^(\d{2})(\d{1,2})/, '$1:$2');
+  }
+  return formatedValue
+    ?.replace(/(\d{2})(\d{2})/, '$1:$2')
+    ?.replace(/(\d{2}):(\d{2})(\d{1,2})/, '$1:$2 às $3')
+    ?.replace(/(\d{2}):(\d{2}) às (\d{2})(\d{1,2})/, '$1:$2 às $3:$4')
+    ?.slice(0, 14);
+};
+
 export const maskCNPJ = (value: string) => {
   return value
     ?.replace(/[^0-9]/g, '')

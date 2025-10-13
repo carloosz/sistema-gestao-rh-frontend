@@ -23,13 +23,17 @@ export const RecoverySchema = yup.object({
 export type IChangeForm = yup.InferType<typeof ChangeSchema>;
 
 export const ChangeSchema = yup.object({
-  password: yup
+  current_password: yup
     .string()
     .required('Senha é obrigatória')
     .min(8, 'Mínimo de 8 digitos'),
-  confirmPassword: yup
+  new_password: yup
     .string()
-    .oneOf([yup.ref('password')], 'As senhas devem coincidir')
+    .required('Senha é obrigatória')
+    .min(8, 'Mínimo de 8 digitos'),
+  confirm_password: yup
+    .string()
+    .oneOf([yup.ref('new_password')], 'As senhas devem coincidir')
     .required('Confirmação de senha é obrigatória')
     .min(8, 'Mínimo de 8 digitos'),
 });

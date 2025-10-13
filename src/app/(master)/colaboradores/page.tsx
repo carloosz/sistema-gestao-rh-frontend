@@ -10,7 +10,23 @@ import Tab2 from '@/components/Tabs/Tab2/Tab2';
 import useDebounce from '@/hooks/useDebounce';
 import { useRouter } from 'next/navigation';
 import protectedRoute from '@/hooks/protectedRoute';
+import { useCollaborators } from '@/services/requests/collaborators/getCollaborators';
+import { IClientList } from '@/interfaces/Client';
+import { maskPhone } from '@/utils/masks';
 
+const dataToRows = (data: IClientList) => {
+  return data?.users?.map(item => ({
+    id: item?.documentId,
+    active: true,
+    data: [
+      { text: item?.id?.toString() },
+      { text: item?.name },
+      { text: item?.natureOfThePosition },
+      { text: item?.registrationNumber || '-' },
+      { text: maskPhone(item?.phone) },
+    ],
+  }));
+};
 
 const CollaboratorsPage = () => {
   const router = useRouter();
@@ -18,7 +34,13 @@ const CollaboratorsPage = () => {
   const [tab, setTab] = useState<'ativos' | 'desligados'>('ativos');
   const [search, setSearch] = useState('');
   const debouncedSearch = useDebounce(search, 600);
-  console.log(debouncedSearch);
+
+  const { data } = useCollaborators({
+    page: currentPage,
+    pageSize: 9,
+    isActive: tab === 'ativos',
+    search: debouncedSearch,
+  });
 
   return (
     <div className="flex flex-col gap-[34px]">
@@ -49,14 +71,16 @@ const CollaboratorsPage = () => {
           />
         </div>
       </div>
-      <TableComponent
-        headers={headers}
-        rows={rows}
-        page={currentPage}
-        setPage={setCurrentPage}
-        total={rows.length}
-        handleView={(id: string) => router.push(`/colaboradores/ver/${id}`)}
-      />
+      {data?.users?.length > 0 && (
+        <TableComponent
+          headers={headers}
+          rows={dataToRows(data)}
+          page={currentPage}
+          setPage={setCurrentPage}
+          total={data?.totalItems}
+          handleView={(id: string) => router.push(`/colaboradores/ver/${id}`)}
+        />
+      )}
     </div>
   );
 };

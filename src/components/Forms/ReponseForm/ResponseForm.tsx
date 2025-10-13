@@ -1,15 +1,20 @@
 import Textarea2 from '@/components/Inputs/Textarea2/Textarea2';
 import Modal from '@/components/Modals/Modal/Modal';
+import { useRespondRequest } from '@/services/requests/requests/respondRequest';
+import handleError from '@/utils/handleToast';
 import { IResponseForm, ResponseSchema } from '@/validations/ResponseSchema';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 interface Props {
+  documentId: string;
   onClose: () => void;
 }
 
-const ResponseForm = ({ onClose }: Props) => {
+const ResponseForm = ({ documentId, onClose }: Props) => {
+  const queryClient = useQueryClient();
   const [openSuccessModal, setOpenSuccessModal] = useState(false);
   const {
     handleSubmit,
@@ -20,9 +25,17 @@ const ResponseForm = ({ onClose }: Props) => {
     resolver: yupResolver(ResponseSchema),
   });
 
+  const { mutate } = useRespondRequest({
+    onSuccess: async () => {
+      setOpenSuccessModal(true);
+      await queryClient.invalidateQueries({ queryKey: ['requests'] });
+      await queryClient.invalidateQueries({ queryKey: ['request'] });
+    },
+    onError: error => handleError(error),
+  });
+
   const onSubmit = (form: IResponseForm) => {
-    console.log(form);
-    setOpenSuccessModal(true);
+    mutate({ ...form, documentId });
   };
 
   return (

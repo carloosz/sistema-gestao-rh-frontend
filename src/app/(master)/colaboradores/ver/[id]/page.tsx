@@ -1,25 +1,21 @@
 'use client';
 
 import CollaboratorForm from '@/components/Forms/CollaboratorForm/CollaboratorForm';
-import { formData, formData2 } from './data';
 import { useParams } from 'next/navigation';
 import protectedRoute from '@/hooks/protectedRoute';
-
+import { useCollaborator } from '@/services/requests/collaborators/getCollaborators';
 
 const ViewCollaboratorPage = () => {
   const params = useParams();
   const { id } = params;
-  return (
-    <CollaboratorForm
-      type="view"
-      formData={
-        id === '0'
-          ? { ...formData2, id: id as string }
-          : { ...formData, id: id as string }
-      }
-    />
-  );
+
+  const { data } = useCollaborator(id as string);
+
+  if (!data) {
+    return null;
+  }
+
+  return <CollaboratorForm type="view" formData={data} />;
 };
 
 export default protectedRoute(ViewCollaboratorPage);
-

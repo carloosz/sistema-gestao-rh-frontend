@@ -1,12 +1,10 @@
 import React, {
   forwardRef,
   ForwardRefRenderFunction,
-  InputHTMLAttributes,
   ReactNode,
   TextareaHTMLAttributes,
   useState,
 } from 'react';
-import MaskedInput from '../MaskedInput/MaskedInput';
 import { twMerge } from 'tailwind-merge';
 
 interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {

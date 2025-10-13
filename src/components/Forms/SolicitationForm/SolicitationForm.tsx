@@ -2,7 +2,7 @@ import Button from '@/components/Buttons/Button/Button';
 import Header from '@/components/Header/Header';
 import Input from '@/components/Inputs/Input/Input';
 import { maskDate } from '@/utils/masks';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -13,6 +13,7 @@ import {
   SolicitationSchema,
 } from '@/validations/SolicitationSchema';
 import ModalResponse from '@/components/Modals/ModalResponse/ModalResponse';
+import { exportRequestPDF } from '@/services/requests/requests/exportRequestPDF';
 
 interface Props {
   type?: 'register' | 'edit' | 'view';
@@ -25,9 +26,7 @@ const SolicitationForm = ({ type = 'register', formData }: Props) => {
 
   const {
     register,
-    watch,
-    control,
-    handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<ISolicitationForm>({
     mode: 'onChange',
@@ -35,16 +34,19 @@ const SolicitationForm = ({ type = 'register', formData }: Props) => {
     defaultValues: formData,
   });
 
-  const onSubmit = (form: ISolicitationForm) => {
-    console.log(form);
-  };
+  useEffect(() => {
+    reset(formData);
+  }, [formData]);
 
   return (
     <>
       {openResponseModal && (
-        <ModalResponse onClose={() => setOpenResponseModal(false)} />
+        <ModalResponse
+          documentId={formData?.documentId as string}
+          onClose={() => setOpenResponseModal(false)}
+        />
       )}
-      <form className="pb-[20px]!" onSubmit={handleSubmit(onSubmit)}>
+      <form className="pb-[20px]!">
         <Header
           title={
             formData?.response
@@ -53,11 +55,39 @@ const SolicitationForm = ({ type = 'register', formData }: Props) => {
           }
           id={formData?.id}
           buttons={
-            formData?.response ? undefined : (
-              <Button type="button" onClick={() => setOpenResponseModal(true)}>
-                Responder
-                <img src="/img/icons/response.svg" alt="Responder" />
+            formData?.response ? (
+              <Button
+                type="button"
+                onClick={async () => {
+                  exportRequestPDF(formData?.documentId as string);
+                }}
+              >
+                Imprimir
+                <img src="/img/icons/print.svg" alt="Imprimir" />
               </Button>
+            ) : (
+              <>
+                <Button
+                  type="button"
+                  onClick={() => setOpenResponseModal(true)}
+                >
+                  Responder
+                  <img src="/img/icons/response.svg" alt="Responder" />
+                </Button>
+                <Button
+                  type="button"
+                  onClick={async () => {
+                    exportRequestPDF(formData?.documentId as string);
+                    const url = await exportRequestPDF(
+                      formData?.documentId as string,
+                    );
+                    open(url, '_blank');
+                  }}
+                >
+                  Imprimir
+                  <img src="/img/icons/print.svg" alt="Imprimir" />
+                </Button>
+              </>
             )
           }
         />
