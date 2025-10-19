@@ -30,6 +30,7 @@ export interface ILoginResponse {
   jwt: string;
   refreshToken: string;
   user: IUser;
+  role: IAttribute
 }
 
 interface IUserProvider {
@@ -76,12 +77,16 @@ const AuthProvider = ({ children }: ChildrenProps) => {
       password: form?.password,
       requestRefresh: form?.remember_me,
     });
+    
+    if (data?.role?.id === 3) {
+      setUser(data?.user);
 
-    setUser(data?.user);
-
-    localStorage.setItem(localStorageKeys.user, JSON.stringify(data?.user));
-    localStorage.setItem(localStorageKeys.accessToken, data?.jwt);
-    localStorage.setItem(localStorageKeys.refreshToken, data?.refreshToken);
+      localStorage.setItem(localStorageKeys.user, JSON.stringify(data?.user));
+      localStorage.setItem(localStorageKeys.accessToken, data?.jwt);
+      localStorage.setItem(localStorageKeys.refreshToken, data?.refreshToken);
+    } else {
+      throw new Error('Usuário não tem acesso');
+    }
   };
 
   const logout = () => {

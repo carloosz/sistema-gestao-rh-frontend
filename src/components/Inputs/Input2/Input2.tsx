@@ -12,13 +12,13 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   description?: string;
   error?: string;
-  maxwidth?: string;
+  customClassNames?: string;
   maskFunction?: (value: string) => string;
   onEdit?: () => void;
   showPasswordButton?: boolean;
   buttons?: ReactNode;
   lock?: boolean;
-  direction?: 'col' | 'row';
+  direction?: 'flex-col' | 'flex-row';
 }
 
 const Input2: ForwardRefRenderFunction<HTMLInputElement, Props> = (
@@ -34,21 +34,17 @@ const Input2: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     onEdit,
     showPasswordButton,
     type,
-    maxwidth,
+    customClassNames,
     buttons,
     lock,
-    direction = 'col',
+    direction = 'flex-col',
     ...rest
   }: Props,
   ref,
 ) => {
   const [show, setShow] = useState(false);
   return (
-    <div
-      className={`${
-        maxwidth ? `max-w-[${maxwidth}]` : ''
-      } w-full flex flex-${direction} gap-2`}
-    >
+    <div className={twMerge(customClassNames, direction, `w-full flex gap-2`)}>
       <div className={`w-full flex flex-${direction} gap-[10px]`}>
         {label && (
           <div className="flex justify-between items-center">

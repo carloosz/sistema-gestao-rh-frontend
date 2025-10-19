@@ -190,7 +190,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
             </span>
             <div className="grid grid-cols-3 gap-x-[37px] gap-y-[30px]">
               <Input
-                maxwidth="286px"
+                customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
                 label="Nome"
                 placeholder="Insira o nome"
@@ -198,7 +198,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
                 error={errors?.name?.message}
               />
               <Input
-                maxwidth="286px"
+                customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
                 label="CPF"
                 maskFunction={maskCPF}
@@ -207,7 +207,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
                 error={errors?.cpf?.message}
               />
               <Input
-                maxwidth="286px"
+                customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
                 type="phone"
                 label="Telefone"
@@ -217,7 +217,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
                 error={errors?.phone?.message}
               />
               <Input
-                maxwidth="286px"
+                customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
                 type="email"
                 label="E-mail"
@@ -226,7 +226,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
                 error={errors?.email?.message}
               />
               <Input
-                maxwidth="286px"
+                customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
                 label="Data de nascimento"
                 maskFunction={maskDate}
@@ -246,7 +246,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
               />
               {type !== 'view' && (
                 <Input
-                  maxwidth="286px"
+                  customClassNames="max-w-[286px]"
                   type="password"
                   showPasswordButton={passwordValue?.length > 0}
                   label="Senha"
@@ -266,7 +266,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
             </span>
             <div className="grid grid-cols-3 gap-x-[37px] gap-y-[30px]">
               <Input
-                maxwidth="286px"
+                customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
                 label="CEP"
                 maskFunction={maskCEP}
@@ -276,7 +276,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
                 error={errors?.cep?.message}
               />
               <Input
-                maxwidth="286px"
+                customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
                 label="Logradouro"
                 placeholder="Insira o logradouro"
@@ -284,7 +284,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
                 error={errors?.street?.message}
               />
               <Input
-                maxwidth="286px"
+                customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
                 label="Estado"
                 placeholder="Insira o estado"
@@ -292,7 +292,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
                 error={errors?.state?.message}
               />
               <Input
-                maxwidth="286px"
+                customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
                 label="Cidade"
                 placeholder="Insira a cidade"
@@ -300,7 +300,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
                 error={errors?.city?.message}
               />
               <Input
-                maxwidth="286px"
+                customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
                 label="Bairro"
                 placeholder="Insira o bairro"
@@ -308,7 +308,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
                 error={errors?.neighborhood?.message}
               />
               <Input
-                maxwidth="286px"
+                customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
                 label="Número"
                 maskFunction={unMask}
@@ -327,7 +327,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
             </span>
             <div className="grid grid-cols-3 gap-x-[37px] gap-y-[30px]">
               <Input
-                maxwidth="286px"
+                customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
                 label="Data da admissão"
                 maskFunction={maskDate}
@@ -346,7 +346,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
                 error={errors?.role?.message}
               />
               <Input
-                maxwidth="286px"
+                customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
                 label="Setor"
                 placeholder="Insira o Setor"
@@ -354,7 +354,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
                 error={errors?.sector?.message}
               />
               <Input
-                maxwidth="286px"
+                customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
                 label="CBO"
                 placeholder="Insira o número"
@@ -362,7 +362,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
                 error={errors?.cbo?.message}
               />
               <Input
-                maxwidth="286px"
+                customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
                 label="Salário inicial"
                 maskFunction={maskMoney}
@@ -383,7 +383,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
               {type === 'view' && formData?.termination_date && (
                 <>
                   <Input
-                    maxwidth="286px"
+                    customClassNames="max-w-[286px]"
                     readOnly={type === 'view'}
                     label="Data de desligamento"
                     maskFunction={maskDate}
@@ -392,7 +392,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
                     error={errors?.termination_date?.message}
                   />
                   <Input
-                    maxwidth="286px"
+                    customClassNames="max-w-[286px]"
                     readOnly={type === 'view'}
                     label="Tipo de rescisão"
                     placeholder="Insira a tipo de rescisão"
@@ -402,7 +402,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
                   <Textarea
                     rows={5}
                     wrap="hard"
-                    maxwidth="286px"
+                    maxwidth="max-w-[286px]"
                     readOnly={type === 'view'}
                     label="Observações"
                     placeholder="Insira as observações"
@@ -432,7 +432,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
                 error={errors?.working_days?.message}
               />
               <Input
-                maxwidth="286px"
+                customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
                 label="Horario de trabalho"
                 placeholder="Insira o horario"
@@ -441,7 +441,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
                 error={errors?.work_schedule?.message}
               />
               <Input
-                maxwidth="286px"
+                customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
                 label="Horario de refeicao"
                 placeholder="Insira o horario"

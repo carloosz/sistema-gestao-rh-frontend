@@ -82,7 +82,7 @@ const ChangePasswordForm = () => {
         <div className="mt-[63px]! flex flex-col gap-[30px] items-center justify-center">
           <fieldset className="max-w-[560px] w-full rounded-[10px] bg-primary pt-[65px]! pb-[52px]! px-[45px]! flex flex-col gap-[30px]">
             <Input2
-              maxwidth="470px"
+              customClassNames="max-w-[470px]"
               type="password"
               showPasswordButton={currentPasswordValue?.length > 0}
               placeholder="Digite a senha atual"
@@ -90,7 +90,7 @@ const ChangePasswordForm = () => {
               error={errors?.current_password?.message}
             />
             <Input2
-              maxwidth="470px"
+              customClassNames="max-w-[470px]"
               type="password"
               showPasswordButton={newPasswordValue?.length > 0}
               placeholder="Digite a nova senha"
@@ -98,7 +98,7 @@ const ChangePasswordForm = () => {
               error={errors?.new_password?.message}
             />
             <Input2
-              maxwidth="470px"
+              customClassNames="max-w-[470px]"
               type="password"
               showPasswordButton={confirmPasswordValue?.length > 0}
               placeholder="Confirme a nova senha"

@@ -54,5 +54,6 @@ const DataToForm = (data: IRequest) => {
       ?.split('-')
       ?.reverse()
       ?.join('/'),
+    attachment: data?.file,
   } as ISolicitationForm;
 };

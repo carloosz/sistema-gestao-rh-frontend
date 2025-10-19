@@ -1,5 +1,6 @@
 import { IAttribute } from './Attribute';
 import { IClient } from './Client';
+import { IFile } from './File';
 
 export interface IRequest extends IAttribute {
   name: string;
@@ -9,6 +10,7 @@ export interface IRequest extends IAttribute {
   observation: string;
   answer: string;
   answeredAt: string;
+  file: IFile;
 }
 
 export interface IRequestList {

@@ -14,6 +14,7 @@ import {
 } from '@/validations/SolicitationSchema';
 import ModalResponse from '@/components/Modals/ModalResponse/ModalResponse';
 import { exportRequestPDF } from '@/services/requests/requests/exportRequestPDF';
+import InputFile from '@/components/Inputs/InputFile/InputFile';
 
 interface Props {
   type?: 'register' | 'edit' | 'view';
@@ -27,12 +28,15 @@ const SolicitationForm = ({ type = 'register', formData }: Props) => {
   const {
     register,
     reset,
+    watch,
     formState: { errors },
   } = useForm<ISolicitationForm>({
     mode: 'onChange',
     resolver: yupResolver(SolicitationSchema),
     defaultValues: formData,
   });
+
+  const fileValue = watch('attachment');
 
   useEffect(() => {
     reset(formData);
@@ -102,14 +106,14 @@ const SolicitationForm = ({ type = 'register', formData }: Props) => {
             <div className="flex flex-col gap-[45px]">
               <div className="grid grid-cols-3 gap-x-[37px] gap-y-[30px]">
                 <Input
-                  maxwidth="286px"
+                  customClassNames="max-w-[286px]"
                   readOnly={type === 'view'}
                   label="Nome"
                   {...register('name')}
                   error={errors?.name?.message}
                 />
                 <Input
-                  maxwidth="286px"
+                  customClassNames="max-w-[286px]"
                   readOnly={type === 'view'}
                   label="Data"
                   maskFunction={maskDate}
@@ -117,7 +121,7 @@ const SolicitationForm = ({ type = 'register', formData }: Props) => {
                   error={errors?.solicitation_date?.message}
                 />
                 <Input
-                  maxwidth="286px"
+                  customClassNames="max-w-[286px]"
                   readOnly={type === 'view'}
                   label="Tipo de solicitação"
                   {...register('type')}
@@ -127,11 +131,18 @@ const SolicitationForm = ({ type = 'register', formData }: Props) => {
               <Textarea
                 rows={5}
                 wrap="hard"
-                maxwidth="286px"
+                maxwidth="max-w-[286px]"
                 readOnly={type === 'view'}
                 label="Observações"
                 {...register('observation')}
                 error={errors?.observation?.message}
+              />
+              <InputFile
+                readOnly={type === 'view'}
+                customClassNames="max-w-[470px]"
+                label="Anexo"
+                file={fileValue}
+                {...register('attachment')}
               />
             </div>
           </fieldset>
@@ -145,17 +156,18 @@ const SolicitationForm = ({ type = 'register', formData }: Props) => {
               </span>
               <div className="flex flex-col gap-[45px]">
                 <Input
-                  maxwidth="286px"
+                  customClassNames="max-w-[286px]"
                   readOnly={type === 'view'}
                   label="Data"
                   maskFunction={maskDate}
+                  accept=".pdf,.png,.gif,.mp4,.webp,.pdf,.csv,.xlsx"
                   {...register('response_date')}
                   error={errors?.response_date?.message}
                 />
                 <Textarea
                   rows={5}
                   wrap="hard"
-                  maxwidth="286px"
+                  maxwidth="max-w-[286px]"
                   readOnly={type === 'view'}
                   label="Resposta"
                   {...register('response')}

@@ -1,4 +1,4 @@
-import { IOption } from '@/interfaces/OptionType';
+import { IFile } from '@/interfaces/File';
 import * as yup from 'yup';
 
 export type ISolicitationForm = yup.InferType<typeof SolicitationSchema>;
@@ -12,4 +12,5 @@ export const SolicitationSchema = yup.object({
   observation: yup.string().optional(),
   response_date: yup.string().optional(),
   response: yup.string().optional(),
+  attachment: yup.mixed<FileList | IFile>().optional(),
 });
