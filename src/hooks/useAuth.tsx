@@ -77,8 +77,8 @@ const AuthProvider = ({ children }: ChildrenProps) => {
       password: form?.password,
       requestRefresh: form?.remember_me,
     });
-    
-    if (data?.role?.id === 3) {
+
+    if (data?.role?.id === 34) {
       setUser(data?.user);
 
       localStorage.setItem(localStorageKeys.user, JSON.stringify(data?.user));
