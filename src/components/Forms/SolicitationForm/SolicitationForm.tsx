@@ -63,7 +63,11 @@ const SolicitationForm = ({ type = 'register', formData }: Props) => {
               <Button
                 type="button"
                 onClick={async () => {
-                  exportRequestPDF(formData?.documentId as string);
+                  await exportRequestPDF(formData?.documentId as string);
+                  const url = await exportRequestPDF(
+                    formData?.documentId as string,
+                  );
+                  open(url, '_blank');
                 }}
               >
                 Imprimir
