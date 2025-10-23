@@ -82,19 +82,6 @@ const SolicitationForm = ({ type = 'register', formData }: Props) => {
                   Responder
                   <img src="/img/icons/response.svg" alt="Responder" />
                 </Button>
-                <Button
-                  type="button"
-                  onClick={async () => {
-                    exportRequestPDF(formData?.documentId as string);
-                    const url = await exportRequestPDF(
-                      formData?.documentId as string,
-                    );
-                    open(url, '_blank');
-                  }}
-                >
-                  Imprimir
-                  <img src="/img/icons/print.svg" alt="Imprimir" />
-                </Button>
               </>
             )
           }
