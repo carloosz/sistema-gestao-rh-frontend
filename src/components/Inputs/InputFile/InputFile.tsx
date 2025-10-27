@@ -47,9 +47,12 @@ const InputFile: ForwardRefRenderFunction<HTMLInputElement, Props> = (
       ? URL.createObjectURL(file.item(0) as File)
       : urlConvert(file?.url ?? '');
   const fileLinkArray = fileLink.split('.');
-  const typeFileVerify = ['gif', 'jpeg', 'jpg', 'png'].includes(
-    fileLinkArray[fileLinkArray.length - 1],
-  );
+const extension = file instanceof FileList
+  ? file.item(0)?.type.split('/')[1]
+  : file?.url?.split('.').pop()?.toLowerCase();
+
+const typeFileVerify = ['gif', 'jpeg', 'jpg', 'png'].includes(extension ?? '');
+
   console.log({ fileLinkArray, typeFileVerify, fileLink });
 
   return (

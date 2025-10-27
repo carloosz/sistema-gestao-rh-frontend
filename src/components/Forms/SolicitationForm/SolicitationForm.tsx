@@ -24,7 +24,6 @@ interface Props {
 const SolicitationForm = ({ type = 'register', formData }: Props) => {
   const router = useRouter();
   const [openResponseModal, setOpenResponseModal] = useState(false);
-
   const {
     register,
     reset,
