@@ -3,12 +3,13 @@
 import protectedRoute from '@/hooks/protectedRoute';
 import { useTerms } from '@/services/requests/terms/getTerms';
 import TermsForm from '@/components/Forms/TermsForm/TermsForm';
+import Loading from '@/components/Loading/Loading';
 
 const EditTermsPage = () => {
   const { data } = useTerms();
 
   if (!data) {
-    return null;
+    return <Loading />;
   }
 
   return (

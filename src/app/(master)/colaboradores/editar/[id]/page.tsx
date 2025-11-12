@@ -4,6 +4,7 @@ import CollaboratorForm from '@/components/Forms/CollaboratorForm/CollaboratorFo
 import { useParams } from 'next/navigation';
 import protectedRoute from '@/hooks/protectedRoute';
 import { useCollaborator } from '@/services/requests/collaborators/getCollaborators';
+import Loading from '@/components/Loading/Loading';
 
 const EditCollaboratorPage = () => {
   const params = useParams();
@@ -12,7 +13,7 @@ const EditCollaboratorPage = () => {
   const { data } = useCollaborator(id as string);
 
   if (!data) {
-    return null;
+    return <Loading />;
   }
 
   return <CollaboratorForm type="edit" formData={data} />;

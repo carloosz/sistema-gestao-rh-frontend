@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation';
 import protectedRoute from '@/hooks/protectedRoute';
 import { useRequests } from '@/services/requests/requests/getRequests';
 import { IRequestList } from '@/interfaces/Request';
+import Loading from '@/components/Loading/Loading';
 
 const dataToRows = (data: IRequestList) => {
   return data?.requests?.map(item => ({
@@ -31,7 +32,7 @@ const RequestsPage = () => {
   const [search, setSearch] = useState('');
   const debouncedSearch = useDebounce(search, 600);
 
-  const { data } = useRequests({
+  const { data, isFetching } = useRequests({
     page: currentPage,
     pageSize: 9,
     search: debouncedSearch,
@@ -39,6 +40,7 @@ const RequestsPage = () => {
 
   return (
     <div className="flex flex-col gap-[34px]">
+      {(isFetching || !data) && <Loading />}
       <Title>Solicitações</Title>
       <div className="w-full flex items-center justify-end">
         <Searchbar

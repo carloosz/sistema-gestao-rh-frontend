@@ -3,7 +3,7 @@
 import TableComponent from '@/components/TableComponent/TableComponent';
 import Title from '@/components/Title/Title';
 import React, { useState } from 'react';
-import { headers, rows } from './fakedata';
+import { headers } from './fakedata';
 import Searchbar from '@/components/Inputs/Searchbar/Searchbar';
 import AddButton from '@/components/Buttons/AddButton/AddButton';
 import Tab2 from '@/components/Tabs/Tab2/Tab2';
@@ -13,6 +13,7 @@ import protectedRoute from '@/hooks/protectedRoute';
 import { useCollaborators } from '@/services/requests/collaborators/getCollaborators';
 import { IClientList } from '@/interfaces/Client';
 import { maskPhone } from '@/utils/masks';
+import Loading from '@/components/Loading/Loading';
 
 const dataToRows = (data: IClientList) => {
   return data?.users?.map(item => ({
@@ -35,7 +36,7 @@ const CollaboratorsPage = () => {
   const [search, setSearch] = useState('');
   const debouncedSearch = useDebounce(search, 600);
 
-  const { data } = useCollaborators({
+  const { data, isFetching } = useCollaborators({
     page: currentPage,
     pageSize: 9,
     isActive: tab === 'ativos',
@@ -44,6 +45,7 @@ const CollaboratorsPage = () => {
 
   return (
     <div className="flex flex-col gap-[34px]">
+      {(isFetching || !data) && <Loading />}
       <Title>Colaboradores</Title>
       <div className="w-full flex justify-between">
         <div className="flex items-center gap-[50px]">
