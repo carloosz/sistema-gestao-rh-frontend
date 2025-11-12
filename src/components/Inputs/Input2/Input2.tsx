@@ -54,7 +54,7 @@ const Input2: ForwardRefRenderFunction<HTMLInputElement, Props> = (
             >
               {label}
               {description && (
-                <span className="text-[16px] font-light text-neutral2">{` ${description}`}</span>
+                <span className="text-[16px] font-light text-white">{` ${description}`}</span>
               )}
             </label>
             {buttons && !disabled && (
@@ -71,7 +71,7 @@ const Input2: ForwardRefRenderFunction<HTMLInputElement, Props> = (
               !!readOnly
                 ? 'w-full text-white text-[16px] font-normal bg-transparent border-none outline-none'
                 : twMerge(
-                    `w-full text-white2 placeholder:text-primary text-[20px] p-[23px_26px]! font-normal rounded-[12px] outline-0 bg-[#0C0C0C]
+                    `w-full text-white2 placeholder:text-white text-[20px] p-[23px_26px]! font-normal rounded-[12px] outline-0 bg-[#0C0C0C]
               `,
                     type === 'password' ? 'pr-[40px]!' : '',
                     error ? 'border-2 border-warning' : '',

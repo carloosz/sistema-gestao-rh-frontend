@@ -73,7 +73,7 @@ const Textarea: ForwardRefRenderFunction<HTMLTextAreaElement, Props> = (
               !!readOnly
                 ? 'w-full text-white text-[16px] font-normal bg-transparent border-none outline-none resize-none'
                 : twMerge(
-                    `w-full text-primary placeholder:text-primary text-[14px] p-[11.5px]! font-normal rounded-[12px] outline-none resize-none bg-primary2
+                    `w-full text-primary placeholder:text-white text-[14px] p-[11.5px]! font-normal rounded-[12px] outline-none resize-none bg-primary2
               `,
                     error ? 'border-2 border-warning' : '',
                   )
