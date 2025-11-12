@@ -45,15 +45,18 @@ const InputFile: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   const fileLink =
     file instanceof FileList && file
       ? URL.createObjectURL(file.item(0) as File)
-      : urlConvert(file?.url ?? '');
-  const fileLinkArray = fileLink.split('.');
-const extension = file instanceof FileList
-  ? file.item(0)?.type.split('/')[1]
-  : file?.url?.split('.').pop()?.toLowerCase();
+      : file?.url
+      ? urlConvert(file?.url)
+      : undefined;
+  const fileLinkArray = fileLink?.split('.');
+  const extension =
+    file instanceof FileList
+      ? file.item(0)?.type.split('/')[1]
+      : file?.url?.split('.').pop()?.toLowerCase();
 
-const typeFileVerify = ['gif', 'jpeg', 'jpg', 'png'].includes(extension ?? '');
-
-  console.log({ fileLinkArray, typeFileVerify, fileLink });
+  const typeFileVerify = ['gif', 'jpeg', 'jpg', 'png'].includes(
+    extension ?? '',
+  );
 
   return (
     <div
@@ -100,72 +103,76 @@ const typeFileVerify = ['gif', 'jpeg', 'jpg', 'png'].includes(extension ?? '');
             )}
           </div>
         )}
-        <div className="flex gap-[16px]">
-          <label
-            htmlFor={id || name}
-            className="relative w-full h-[54px] flex items-center justify-between p-[13px_16px]! font-normal rounded-[12px] outline-0 bg-[#0C0C0C]"
-          >
-            <span className="w-full text-start text-white2  text-[20px] overflow-hidden text-ellipsis whitespace-nowrap">
-              {file && file instanceof FileList
-                ? file?.item(0)?.name
-                : file?.name}
-            </span>
-            <img
-              width={30}
-              height={30}
-              src="/img/icons/clip.svg"
-              alt="Arquivo"
-            />
+        {!fileLink && readOnly ? (
+          <span className="text-[16px] font-normal text-white">Sem Anexo</span>
+        ) : (
+          <div className="flex gap-[16px]">
+            <label
+              htmlFor={id || name}
+              className="relative w-full h-[54px] flex items-center justify-between p-[13px_16px]! font-normal rounded-[12px] outline-0 bg-[#0C0C0C]"
+            >
+              <span className="w-full text-start text-white2  text-[20px] overflow-hidden text-ellipsis whitespace-nowrap">
+                {file && file instanceof FileList
+                  ? file?.item(0)?.name
+                  : file?.name}
+              </span>
+              <img
+                width={30}
+                height={30}
+                src="/img/icons/clip.svg"
+                alt="Arquivo"
+              />
 
-            <input
-              type="file"
-              id={id || name}
-              disabled={disabled || readOnly}
-              readOnly={readOnly}
-              className={'hidden'}
-              name={name}
-              {...rest}
-              ref={ref}
-            />
-          </label>
-          {readOnly && fileLink && (
-            <div className="flex items-center gap-[8px]">
-              {typeFileVerify && (
+              <input
+                type="file"
+                id={id || name}
+                disabled={disabled || readOnly}
+                readOnly={readOnly}
+                className={'hidden'}
+                name={name}
+                {...rest}
+                ref={ref}
+              />
+            </label>
+            {readOnly && fileLink && (
+              <div className="flex items-center gap-[8px]">
+                {typeFileVerify && (
+                  <button
+                    className="w-[30px] h-[30px]"
+                    type="button"
+                    onClick={e => setSelectedImage(fileLink)}
+                  >
+                    <img
+                      width={30}
+                      height={30}
+                      src="/img/icons/eye_white.svg"
+                      alt="Arquivo"
+                    />
+                  </button>
+                )}
+
                 <button
                   className="w-[30px] h-[30px]"
-                  type="button"
-                  onClick={e => setSelectedImage(fileLink)}
+                  onClick={e =>
+                    file instanceof FileList || file === undefined
+                      ? undefined
+                      : DocDownload({
+                          event: e,
+                          pathDoc: file?.url?.replace('/', '') as string,
+                        })
+                  }
                 >
                   <img
                     width={30}
                     height={30}
-                    src="/img/icons/eye_white.svg"
+                    src="/img/icons/download.svg"
                     alt="Arquivo"
                   />
                 </button>
-              )}
-
-              <button
-                className="w-[30px] h-[30px]"
-                onClick={e =>
-                  file instanceof FileList || file === undefined
-                    ? undefined
-                    : DocDownload({
-                        event: e,
-                        pathDoc: file?.url?.replace('/', '') as string,
-                      })
-                }
-              >
-                <img
-                  width={30}
-                  height={30}
-                  src="/img/icons/download.svg"
-                  alt="Arquivo"
-                />
-              </button>
-            </div>
-          )}
-        </div>
+              </div>
+            )}
+          </div>
+        )}
       </div>
       {error && (
         <span className="text-[10px] text-warning font-normal">{error}</span>
