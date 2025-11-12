@@ -14,8 +14,10 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   error?: string;
   customClassNames?: string;
   maskFunction?: (value: string) => string;
+  hiddenFunction?: (value: string) => string;
   onEdit?: () => void;
   showPasswordButton?: boolean;
+  hideMode?: boolean;
   buttons?: ReactNode;
   lock?: boolean;
   direction?: 'flex-col' | 'flex-row';
@@ -29,10 +31,13 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, Props> = (
     label,
     description,
     name,
+    value,
     error,
     maskFunction,
+    hiddenFunction,
     onEdit,
     showPasswordButton,
+    hideMode,
     type,
     customClassNames,
     buttons,
@@ -43,6 +48,11 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   ref,
 ) => {
   const [show, setShow] = useState(false);
+  const [showHidden, setShowHidden] = useState(true);
+
+  const hiddenValue =
+    showHidden && hiddenFunction ? hiddenFunction(value as string) : value;
+
   return (
     <div className={twMerge(customClassNames, direction, `w-full flex gap-2`)}>
       <div className={twMerge(direction, `w-full flex gap-[10px]`)}>
@@ -54,7 +64,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, Props> = (
             >
               {label}
               {description && (
-                <span className="text-[16px] font-light text-neutral2">{` ${description}`}</span>
+                <span className="text-[16px] font-light text-white">{` ${description}`}</span>
               )}
             </label>
             {buttons && !disabled && (
@@ -71,13 +81,14 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, Props> = (
               !!readOnly
                 ? 'w-full text-white text-[16px] font-normal bg-transparent border-none outline-none'
                 : twMerge(
-                    `w-full text-white2 placeholder:text-primary text-[14px] p-[11.5px]! font-normal rounded-[12px] outline-0 bg-primary2
+                    `w-full text-white2 placeholder:text-white text-[14px] p-[11.5px]! font-normal rounded-[12px] outline-0 bg-primary2
               `,
                     type === 'password' ? 'pr-[40px]!' : '',
                     error ? 'border-2 border-warning' : '',
                   )
             }
             name={name}
+            value={showHidden ? hiddenValue : value}
             maskFunction={maskFunction}
             type={type === 'password' ? (show ? 'text' : 'password') : type}
             {...rest}
@@ -100,6 +111,24 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, Props> = (
                 />
               </button>
             )}
+          {hideMode && (
+            <button
+              className="absolute top-1/2 right-[16px] translate-y-[-50%] border-none bg-transparent flex items-center justify-center"
+              type="button"
+              onClick={() => setShowHidden(prev => !prev)}
+            >
+              <img
+                width={24}
+                height={24}
+                src={
+                  showHidden
+                    ? '/img/icons/eye_on2.svg'
+                    : '/img/icons/eye_off2.svg'
+                }
+                alt="Alternar mostrar senha"
+              />
+            </button>
+          )}
           {disabled && lock && (
             <div className="absolute top-1/2 right-[16px] translate-y-[-50%] border-none bg-transparent flex items-center justify-center">
               <img

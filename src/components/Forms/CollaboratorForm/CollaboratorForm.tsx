@@ -16,6 +16,7 @@ import { useForm } from 'react-hook-form';
 import { genderOptions, paymentMethodOptions, roleOptions } from './data';
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
+  CollaboratorEditSchema,
   CollaboratorSchema,
   ICollaboratorForm,
 } from '@/validations/CollaboratorSchema';
@@ -36,6 +37,35 @@ interface Props {
   formData?: ICollaboratorForm;
 }
 
+function hiddenCPF(cpf: string) {
+  if (!cpf) return '';
+
+  const numbers = cpf.replace(/\D/g, '');
+
+  const masked = numbers.replace(
+    /(\d{3})(\d{3})(\d{3})(\d{2})/,
+    '$1.•••.•••-$4',
+  );
+
+  return masked;
+}
+
+// Função para mascarar Email com bullet points (domínio parcial)
+function hiddenkEmail(email: string) {
+  if (!email) return '';
+
+  const [username, domain] = email.split('@');
+
+  const maskedUsername = username[0] + '•'.repeat(username.length - 1);
+
+  const domainParts = domain.split('.');
+  const maskedDomainName =
+    domainParts[0][0] + '•'.repeat(domainParts[0].length - 1);
+  const extension = domainParts.slice(1).join('.');
+
+  return `${maskedUsername}@${maskedDomainName}.${extension}`;
+}
+
 const CollaboratorForm = ({ type = 'register', formData }: Props) => {
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -49,12 +79,16 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
     formState: { errors },
   } = useForm<ICollaboratorForm>({
     mode: 'onChange',
-    resolver: yupResolver(CollaboratorSchema),
+    resolver: yupResolver(
+      type === 'edit' ? CollaboratorEditSchema : CollaboratorSchema,
+    ),
   });
 
   const [openModalDimiss, setOpenModalDimiss] = useState(false);
 
   const passwordValue = watch('password');
+  const cpfValue = watch('cpf');
+  const emailValue = watch('email');
 
   const { data: weekDayOptions } = useWeekDaysOptions();
 
@@ -200,8 +234,11 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
               <Input
                 customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
+                hideMode={type === 'view'}
                 label="CPF"
+                value={cpfValue}
                 maskFunction={maskCPF}
+                hiddenFunction={type === 'view' ? hiddenCPF : undefined}
                 placeholder="Insira o CPF"
                 {...register('cpf')}
                 error={errors?.cpf?.message}
@@ -219,8 +256,11 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
               <Input
                 customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
+                hideMode={type === 'view'}
                 type="email"
                 label="E-mail"
+                value={emailValue}
+                hiddenFunction={type === 'view' ? hiddenkEmail : undefined}
                 placeholder="Insira o E-mail"
                 {...register('email')}
                 error={errors?.email?.message}
@@ -248,7 +288,9 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
                 <Input
                   customClassNames="max-w-[286px]"
                   type="password"
-                  showPasswordButton={passwordValue?.length > 0}
+                  showPasswordButton={
+                    !!passwordValue && passwordValue?.length > 0
+                  }
                   label="Senha"
                   placeholder="Insira a senha"
                   {...register('password')}
