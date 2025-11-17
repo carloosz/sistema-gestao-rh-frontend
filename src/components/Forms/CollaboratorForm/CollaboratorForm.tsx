@@ -222,7 +222,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
             >
               Dados pessoais
             </span>
-            <div className="grid grid-cols-3 gap-x-[37px] gap-y-[30px]">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-[37px] gap-y-[30px]">
               <Input
                 customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
@@ -306,7 +306,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
             >
               Endereço
             </span>
-            <div className="grid grid-cols-3 gap-x-[37px] gap-y-[30px]">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-[37px] gap-y-[30px]">
               <Input
                 customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
@@ -367,7 +367,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
             >
               Dados profissionais
             </span>
-            <div className="grid grid-cols-3 gap-x-[37px] gap-y-[30px]">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-[37px] gap-y-[30px]">
               <Input
                 customClassNames="max-w-[286px]"
                 readOnly={type === 'view'}
@@ -462,7 +462,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
             >
               Horário de trabalho
             </span>
-            <div className="grid grid-cols-3 gap-x-[37px] gap-y-[30px]">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-[37px] gap-y-[30px]">
               <MultiSelect
                 readOnly={type === 'view'}
                 id={'working_days'}

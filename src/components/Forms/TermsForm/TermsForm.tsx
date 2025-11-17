@@ -70,7 +70,7 @@ const TermsForm = ({ type = 'view', formData }: Props) => {
           )
         }
       />
-      <div className="my-[15px]! ml-[60px]! mr-[30px]! flex flex-col gap-[15px] items-center">
+      <div className="my-[15px]! lg:ml-[60px]! lg:mr-[30px]! flex flex-col gap-[15px] items-center">
         <div className="w-full flex flex-col">
           <span className="font-normal text-secondary text-[24px]">
             Termos de uso

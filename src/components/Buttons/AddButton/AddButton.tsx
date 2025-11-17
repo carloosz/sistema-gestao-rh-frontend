@@ -14,7 +14,7 @@ const AddButton: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
 ) => {
   return (
     <button
-      className="rounded-[10px] bg-secondary font-normal text-[24px] text-primary2 flex justify-center items-center gap-[20px] w-[335px] h-[50px]"
+      className="rounded-[10px] bg-secondary font-normal text-[24px] text-primary2 flex justify-center items-center gap-[20px] w-full h-[50px] whitespace-nowrap overflow-ellipsis overflow-hidden"
       {...rest}
       ref={ref}
     >

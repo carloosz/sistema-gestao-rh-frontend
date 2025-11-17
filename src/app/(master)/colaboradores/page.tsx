@@ -47,7 +47,7 @@ const CollaboratorsPage = () => {
     <div className="flex flex-col gap-[34px]">
       {(isFetching || !data) && <Loading />}
       <Title>Colaboradores</Title>
-      <div className="w-full flex justify-between">
+      <div className="w-full flex flex-col lg:flex-row lg:justify-between gap-[20px]">
         <div className="flex items-center gap-[50px]">
           <Tab2
             active={tab === 'ativos'}
@@ -60,7 +60,7 @@ const CollaboratorsPage = () => {
             children={'Desligados'}
           />
         </div>
-        <div className="flex items-center gap-[25px]">
+        <div className="max-w-[695px] w-full flex flex-col md:flex-row lg:items-center gap-[25px]">
           <Searchbar
             placeholder="Buscar colaborador"
             value={search}
