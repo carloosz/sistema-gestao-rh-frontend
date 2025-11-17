@@ -51,7 +51,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   const [showHidden, setShowHidden] = useState(true);
 
   const hiddenValue =
-    showHidden && hiddenFunction ? hiddenFunction(value as string) : value;
+    showHidden && !!hiddenFunction ? hiddenFunction(value as string) : value;
 
   return (
     <div className={twMerge(customClassNames, direction, `w-full flex gap-2`)}>
@@ -59,12 +59,12 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         {label && (
           <div className="flex justify-between items-center">
             <label
-              className="text-[16px] font-normal text-secondary flex items-center gap-2 h-[25px]"
+              className="text-[14px] sm:text-[16px] font-normal text-secondary flex items-center gap-2 h-[25px]"
               htmlFor={id || name}
             >
               {label}
               {description && (
-                <span className="text-[16px] font-light text-white">{` ${description}`}</span>
+                <span className="text-[14px] sm:text-[16px]font-light text-white">{` ${description}`}</span>
               )}
             </label>
             {buttons && !disabled && (
@@ -73,27 +73,37 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, Props> = (
           </div>
         )}
         <div className="relative w-full flex items-center justify-start rounded-[0.75rem]">
-          <MaskedInput
-            id={id || name}
-            disabled={disabled}
-            readOnly={readOnly}
-            className={
-              !!readOnly
-                ? 'w-full text-white text-[16px] font-normal bg-transparent border-none outline-none'
-                : twMerge(
-                    `w-full text-white2 placeholder:text-white text-[14px] p-[11.5px]! font-normal rounded-[12px] outline-0 bg-primary2
+          {readOnly && hiddenFunction ? (
+            <input
+              id={id || name}
+              name={name}
+              readOnly={readOnly}
+              className="w-full text-white text-[14px] sm:text-[16px] font-normal bg-transparent border-none outline-none"
+              value={hiddenValue}
+            />
+          ) : (
+            <MaskedInput
+              id={id || name}
+              disabled={disabled}
+              readOnly={readOnly}
+              className={
+                !!readOnly
+                  ? 'w-full text-white text-[16px] font-normal bg-transparent border-none outline-none'
+                  : twMerge(
+                      `w-full text-white2 placeholder:text-white text-[14px] p-[11.5px]! font-normal rounded-[12px] outline-0 bg-primary2
               `,
-                    type === 'password' ? 'pr-[40px]!' : '',
-                    error ? 'border-2 border-warning' : '',
-                  )
-            }
-            name={name}
-            value={showHidden ? hiddenValue : value}
-            maskFunction={maskFunction}
-            type={type === 'password' ? (show ? 'text' : 'password') : type}
-            {...rest}
-            ref={ref}
-          />
+                      type === 'password' ? 'pr-[40px]!' : '',
+                      error ? 'border-2 border-warning' : '',
+                    )
+              }
+              name={name}
+              maskFunction={maskFunction}
+              type={type === 'password' ? (show ? 'text' : 'password') : type}
+              {...rest}
+              ref={ref}
+            />
+          )}
+
           {type === 'password' &&
             (showPasswordButton === undefined || showPasswordButton) && (
               <button
