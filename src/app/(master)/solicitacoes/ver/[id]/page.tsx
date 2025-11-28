@@ -1,6 +1,4 @@
 'use client';
-
-import { formData, formData2 } from './data';
 import { useParams } from 'next/navigation';
 import SolicitationForm from '@/components/Forms/SolicitationForm/SolicitationForm';
 import protectedRoute from '@/hooks/protectedRoute';
