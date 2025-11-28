@@ -75,7 +75,7 @@ const SidebarDesktop = () => {
                 }
                 alt=""
               />
-              Solicitacoes
+              Solicitações
             </Link>
             <Link
               href="/termos"

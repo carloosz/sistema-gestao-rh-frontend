@@ -73,7 +73,7 @@ const SidebarMobile = () => {
               }
               alt=""
             />
-            Solicitacoes
+            Solicitações
           </button>
           <button
             type="button"
