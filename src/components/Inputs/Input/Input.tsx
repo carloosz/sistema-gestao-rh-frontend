@@ -72,7 +72,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, Props> = (
             )}
           </div>
         )}
-        <div className="relative w-full flex items-center justify-start rounded-[0.75rem]">
+        <div className="relative w-full flex items-center justify-start rounded-[0.75rem] gap-[8px]">
           {readOnly && hiddenFunction ? (
             <input
               id={id || name}
@@ -107,7 +107,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, Props> = (
           {type === 'password' &&
             (showPasswordButton === undefined || showPasswordButton) && (
               <button
-                className="absolute top-1/2 right-[16px] translate-y-[-50%] border-none bg-transparent flex items-center justify-center"
+                className="border-none bg-transparent flex items-center justify-center"
                 type="button"
                 onClick={() => setShow(prev => !prev)}
               >
@@ -123,7 +123,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, Props> = (
             )}
           {hideMode && (
             <button
-              className="absolute top-1/2 right-[16px] translate-y-[-50%] border-none bg-transparent flex items-center justify-center"
+              className="border-none bg-transparent flex items-center justify-center"
               type="button"
               onClick={() => setShowHidden(prev => !prev)}
             >

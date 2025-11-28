@@ -39,7 +39,7 @@ const MultiSelect: ForwardRefRenderFunction<any, Props> = (
               ref={ref}
             >
               <div className="flex items-center justify-between">
-                <span className="text-[16px] text-primary font-normal">
+                <span className="text-[16px] text-white font-normal">
                   {(field?.value?.label as string) || 'Selecione'}
                 </span>
                 <button
@@ -63,7 +63,7 @@ const MultiSelect: ForwardRefRenderFunction<any, Props> = (
                     <button
                       key={index}
                       type="button"
-                      className="text-[16px] text-primary font-normal flex items-center gap-[16px]"
+                      className="text-[16px] text-white font-normal flex items-center gap-[16px]"
                       onClick={() => {
                         if (Array.isArray(field.value)) {
                           if (

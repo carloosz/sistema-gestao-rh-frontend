@@ -86,7 +86,7 @@ const Input2: ForwardRefRenderFunction<HTMLInputElement, Props> = (
           {type === 'password' &&
             (showPasswordButton === undefined || showPasswordButton) && (
               <button
-                className="absolute top-1/2 right-[16px] translate-y-[-50%] border-none bg-transparent flex items-center justify-center"
+                className="border-none bg-transparent flex items-center justify-center"
                 type="button"
                 onClick={() => setShow(prev => !prev)}
               >
@@ -101,7 +101,7 @@ const Input2: ForwardRefRenderFunction<HTMLInputElement, Props> = (
               </button>
             )}
           {disabled && lock && (
-            <div className="absolute top-1/2 right-[16px] translate-y-[-50%] border-none bg-transparent flex items-center justify-center">
+            <div className="border-none bg-transparent flex items-center justify-center">
               <img
                 width={24}
                 height={24}
