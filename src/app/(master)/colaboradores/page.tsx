@@ -38,7 +38,7 @@ const CollaboratorsPage = () => {
 
   const { data, isFetching } = useCollaborators({
     page: currentPage,
-    pageSize: 9,
+    pageSize: 10,
     isActive: tab === 'ativos',
     search: debouncedSearch,
   });

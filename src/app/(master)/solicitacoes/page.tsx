@@ -31,18 +31,24 @@ const RequestsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState('');
   const debouncedSearch = useDebounce(search, 600);
+  const [sort, setSort] = useState<string | undefined>(undefined);
 
   const { data, isFetching } = useRequests({
     page: currentPage,
-    pageSize: 9,
+    pageSize: 10,
+    sort: sort?.match('asc') ? 'asc' : 'desc',
     search: debouncedSearch,
   });
+
+  const handleSort = (name: string, sort?: string) => {
+    setSort(`${name}:${sort}`);
+  };
 
   return (
     <div className="flex flex-col gap-[34px]">
       {(isFetching || !data) && <Loading />}
       <Title>Solicitações</Title>
-      <div className="w-full flex items-center justify-end">
+      <div className="w-full flex sm:max-w-[335px] sm:ml-auto! items-center justify-end">
         <Searchbar
           placeholder="Remetente"
           value={search}
@@ -57,6 +63,7 @@ const RequestsPage = () => {
           setPage={setCurrentPage}
           total={data?.totalItems}
           handleView={(id: string) => router.push(`/solicitacoes/ver/${id}`)}
+          handleSort={handleSort}
         />
       )}
     </div>
