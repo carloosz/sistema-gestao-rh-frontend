@@ -175,7 +175,15 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
                 <img src="/img/icons/save.svg" alt="Salvar" />
               </Button>
             ) : formData?.termination_date ? (
-              <Button type="button">
+              <Button
+                type="button"
+                onClick={async () => {
+                  const url = await exportUserPDF(
+                    formData?.documentId as string,
+                  );
+                  open(url, '_blank');
+                }}
+              >
                 Imprimir
                 <img src="/img/icons/print.svg" alt="Imprimir" />
               </Button>
