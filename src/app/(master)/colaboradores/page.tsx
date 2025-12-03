@@ -81,6 +81,7 @@ const CollaboratorsPage = () => {
           setPage={setCurrentPage}
           total={data?.totalItems}
           handleView={(id: string) => router.push(`/colaboradores/ver/${id}`)}
+          pageCount={data?.totalPages}
         />
       )}
     </div>
