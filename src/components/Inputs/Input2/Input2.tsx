@@ -62,7 +62,7 @@ const Input2: ForwardRefRenderFunction<HTMLInputElement, Props> = (
             )}
           </div>
         )}
-        <div className="relative w-full flex items-center justify-start rounded-[0.75rem]">
+        <div className={twMerge("relative w-full flex items-center justify-start rounded-[0.75rem] ", !!readOnly ? '' : error ? 'bg-[#0C0C0C] border-2 border-warning' : 'bg-[#0C0C0C]')}>
           <MaskedInput
             id={id || name}
             disabled={disabled}
@@ -73,8 +73,7 @@ const Input2: ForwardRefRenderFunction<HTMLInputElement, Props> = (
                 : twMerge(
                     `w-full text-white2 placeholder:text-white text-[18px] sm:text-[20px] p-[23px_26px]! font-normal rounded-[12px] outline-0 bg-[#0C0C0C]
               `,
-                    type === 'password' ? 'pr-[40px]!' : '',
-                    error ? 'border-2 border-warning' : '',
+                    type === 'password' ? 'pr-[60px]!' : '',
                   )
             }
             name={name}
@@ -86,13 +85,13 @@ const Input2: ForwardRefRenderFunction<HTMLInputElement, Props> = (
           {type === 'password' &&
             (showPasswordButton === undefined || showPasswordButton) && (
               <button
-                className="border-none bg-transparent flex items-center justify-center"
+                className="absolute right-[20px] top-[50%] translate-y-[-50%] border-none bg-transparent flex items-center justify-center"
                 type="button"
                 onClick={() => setShow(prev => !prev)}
               >
                 <img
-                  width={24}
-                  height={24}
+                  width={35}
+                  height={35}
                   src={
                     show ? '/img/icons/eye_on.svg' : '/img/icons/eye_off.svg'
                   }

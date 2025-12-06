@@ -72,7 +72,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, Props> = (
             )}
           </div>
         )}
-        <div className="relative w-full flex items-center justify-start rounded-[0.75rem] gap-[8px]">
+        <div className={twMerge("relative w-full flex items-center justify-start rounded-[0.75rem] gap-[8px]", !!readOnly ? '' : error ? 'bg-primary2 border-2 border-warning' : 'bg-primary2')}>
           {readOnly && hiddenFunction ? (
             <input
               id={id || name}
@@ -92,7 +92,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, Props> = (
                   : twMerge(
                       `w-full text-white2 placeholder:text-white text-[14px] p-[11.5px]! font-normal rounded-[12px] outline-0 bg-primary2
               `,
-                      type === 'password' ? 'pr-[40px]!' : '',
+                      type === 'password' ? 'pr-[50px]!' : '',
                       error ? 'border-2 border-warning' : '',
                     )
               }
@@ -107,7 +107,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, Props> = (
           {type === 'password' &&
             (showPasswordButton === undefined || showPasswordButton) && (
               <button
-                className="border-none bg-transparent flex items-center justify-center"
+                className="absolute right-[20px] top-[50%] translate-y-[-50%] border-none bg-transparent flex items-center justify-center"
                 type="button"
                 onClick={() => setShow(prev => !prev)}
               >
