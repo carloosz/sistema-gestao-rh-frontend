@@ -145,7 +145,7 @@ const CollaboratorForm = ({ type = 'register', formData }: Props) => {
   };
 
   useEffect(() => {
-    reset(formData);
+    reset(type === 'view' ? {...formData, birthdate: formData?.birthdate?.length === 10 ? formData?.birthdate : '-' } : formData);
   }, [formData]);
 
   return (
